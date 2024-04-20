@@ -13,7 +13,7 @@ func ErrorHandler(err error, c echo.Context) {
 	// Log the error
 	c.Logger().Error(err)
 
-	// Check if the response has already been sent
+	// Check if the response has already been sent (prevent for responding two times)
 	if c.Response().Committed {
 		return
 	}
@@ -28,7 +28,7 @@ func ErrorHandler(err error, c echo.Context) {
 	}
 
 	// Prepare the error response
-	errorResponse := response.ErrorResponse(status,message)
+	errorResponse := response.ErrorResponse(status, message)
 
 	// Send JSON response
 	c.JSON(http.StatusInternalServerError, errorResponse)
