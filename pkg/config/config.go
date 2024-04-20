@@ -11,12 +11,12 @@ type Apps struct {
 	HttpPort string `json:"httpPort"`
 }
 
-type MongoConfig struct {
-	URI         string `json:"uri"`
-	MaxPoolSize uint64 `json:"max_pool_size"`
-	MinPoolSize uint64 `json:"min_pool_size"`
-	Timeout     int    `json:"timeout"`
-}
+// type MongoConfig struct {
+// 	URI         string `json:"uri"`
+// 	MaxPoolSize uint64 `json:"max_pool_size"`
+// 	MinPoolSize uint64 `json:"min_pool_size"`
+// 	Timeout     int    `json:"timeout"`
+// }
 
 type DB struct {
 	Host     string `json:"host"`
