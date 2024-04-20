@@ -1,9 +1,9 @@
-package postgreg
+package postgre
 
 import (
 	"context"
 	"fmt"
-	"gdk/pkg/config"
+	"gokomodo-test/pkg/config"
 	"time"
 
 	"github.com/jackc/pgx/v5/pgxpool"
