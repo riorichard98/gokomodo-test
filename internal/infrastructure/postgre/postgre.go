@@ -10,7 +10,7 @@ import (
 )
 
 // NewPgSql creates a new connection to a PostgreSQL database
-func NewPgSql(db config.DB) (*pgxpool.Pool, error) {
+func NewPgSql(db config.DB) *pgxpool.Pool {
 	ctx := context.Background()
 
 	// Construct the connection string
@@ -33,5 +33,5 @@ func NewPgSql(db config.DB) (*pgxpool.Pool, error) {
 		panic(fmt.Sprintf("unable to create connection pool: %v", err.Error()))
 	}
 
-	return pool, nil
+	return pool
 }
