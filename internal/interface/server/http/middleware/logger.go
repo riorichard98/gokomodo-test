@@ -17,8 +17,8 @@ type LogData struct {
 	Response      json.RawMessage `json:"response_body"`
 }
 
-// RequestResponseLoggingMiddleware creates a middleware to log request and response bodies.
-func RequestResponseLoggingMiddleware() echo.MiddlewareFunc {
+// LoggingMiddleware creates a middleware to log request and response bodies.
+func LoggingMiddleware() echo.MiddlewareFunc {
 	return middleware.BodyDump(func(c echo.Context, reqBody, resBody []byte) {
 		logData := LogData{
 			Timestamp:     time.Now().Format(time.RFC3339),
