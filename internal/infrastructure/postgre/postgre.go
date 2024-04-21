@@ -33,5 +33,11 @@ func NewPgSql(db config.DB) *pgxpool.Pool {
 		panic(fmt.Sprintf("unable to create connection pool: %v", err.Error()))
 	}
 
+	// Ping the connection
+	if err := pool.Ping(ctx); err != nil {
+		panic(fmt.Sprintf("unable to connect with postgresql: %v", err.Error()))
+	}
+
+	fmt.Println("postgre database is connected")
 	return pool
 }
