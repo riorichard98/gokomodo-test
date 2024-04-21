@@ -1,6 +1,6 @@
 -- Create buyer table
 create table buyer (
-    id serial primary key,
+    id uuid primary key default uuid_generate_v4(),
     email varchar(255) unique not null,
     name varchar(255) not null,
     password varchar(255) not null,
@@ -9,7 +9,7 @@ create table buyer (
 
 -- Create seller table
 create table seller (
-    id serial primary key,
+    id uuid primary key default uuid_generate_v4(),
     email varchar(255) unique not null,
     name varchar(255) not null,
     password varchar(255) not null,
@@ -18,19 +18,19 @@ create table seller (
 
 -- Create product table
 create table product (
-    id serial primary key,
+    id uuid primary key default uuid_generate_v4(),
     product_name varchar(255) not null,
     description text,
     price decimal(10, 2) not null,
-    seller_id int,
+    seller_id uuid,
     foreign key (seller_id) references seller(id)
 );
 
 -- Create order table
 create table "order" (
-    id serial primary key,
-    buyer_id int,
-    seller_id int,
+    id uuid primary key default uuid_generate_v4(),
+    buyer_id uuid,
+    seller_id uuid,
     delivery_source_address text not null,
     delivery_destination_address text not null,
     items text,
