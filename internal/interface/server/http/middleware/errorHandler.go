@@ -25,6 +25,12 @@ func ErrorHandler(err error, c echo.Context) {
 	// Handle specific types of HTTP errors
 	if he, ok := err.(*echo.HTTPError); ok {
 		message = fmt.Sprintf("%v", he.Message)
+
+		if he.Code == http.StatusUnauthorized {
+			status = response.CODE_UNAUTHENTICATED
+		} else if he.Code == http.StatusBadRequest {
+			status = response.CODE_BAD_REQUEST
+		}
 	}
 
 	// Prepare the error response
