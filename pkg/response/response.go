@@ -24,3 +24,12 @@ func ErrorResponse(status, message string) (response DefaultResponse) {
 	}
 	return
 }
+
+func ErrorServerResponse() (response DefaultResponse) {
+	response = DefaultResponse{
+		Status:  CODE_INTERNAL_SERVER_ERROR,
+		Message: MESSAGE_INTERNAL_SERVER_ERROR,
+		Data:    nil,
+	}
+	return
+}
