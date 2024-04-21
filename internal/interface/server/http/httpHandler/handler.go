@@ -5,10 +5,13 @@ import (
 )
 
 type handler struct {
+	OnboardHandler *onboardHandler
+	SellerHandler  *sellerHandler
 }
 
 func SetupHandlers(container *container.Container) *handler {
 	return &handler{
-		// FileUploadHandler: NewUploadHandler(container.FileUploadService),
+		OnboardHandler: NewOnboardHandler(container.OnboardService),
+		SellerHandler:  NewSellerHandler(container.SellerService, container.OnboardService),
 	}
 }
