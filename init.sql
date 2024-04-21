@@ -1,3 +1,6 @@
+-- Enable the uuid-ossp extension
+create extension if not exists "uuid-ossp";
+
 -- Create buyer table
 create table buyer (
     id uuid primary key default uuid_generate_v4(),
