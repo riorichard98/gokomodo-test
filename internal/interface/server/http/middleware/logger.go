@@ -20,22 +20,40 @@ type LogData struct {
 // LoggingMiddleware creates a middleware to log request and response bodies.
 func LoggingMiddleware() echo.MiddlewareFunc {
 	return middleware.BodyDump(func(c echo.Context, reqBody, resBody []byte) {
+		var rawReqBody, rawResBody json.RawMessage
+		var err error
+
+		// Prepare the request body for logging
+		if len(reqBody) > 0 {
+			rawReqBody = json.RawMessage(reqBody)
+		} else {
+			rawReqBody = json.RawMessage(`{}`)
+		}
+
+		// Prepare the response body for logging
+		if len(resBody) > 0 {
+			rawResBody = json.RawMessage(resBody)
+		} else {
+			rawResBody = json.RawMessage(`{}`)
+		}
+
+		// Prepare log data
 		logData := LogData{
 			Timestamp:     time.Now().Format(time.RFC3339),
 			RequestPath:   c.Request().URL.Path,
 			RequestMethod: c.Request().Method,
-			Request:       json.RawMessage(reqBody),
-			Response:      json.RawMessage(resBody),
+			Request:       rawReqBody,
+			Response:      rawResBody,
 		}
 
+		// Marshal the log data into JSON
 		logJSON, err := json.Marshal(logData)
 		if err != nil {
-			// Handle JSON marshaling error.
 			c.Logger().Errorf("Error marshaling log data: %v", err)
 			return
 		}
 
-		// Print the JSON string or send it to a logging system.
-		c.Logger().Info(string(logJSON))
+		// Log the JSON string
+		c.Logger().Infof(string(logJSON))
 	})
 }
