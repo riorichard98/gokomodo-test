@@ -10,6 +10,7 @@ import (
 
 	"gokomodo-test/internal/interface/container"
 	"gokomodo-test/internal/interface/server/http/middleware"
+	"gokomodo-test/pkg/config"
 )
 
 func StartHttpService(container *container.Container) {
@@ -22,6 +23,7 @@ func StartHttpService(container *container.Container) {
 
 	e.Use(middleware.LoggingMiddleware())        // Use logging middleware to log incoming requests
 	e.Use(middleware.SetCorsConfig())            // Set up CORS middleware for handling Cross-Origin Resource Sharing (CORS) headers
+	e.Use(middleware.JWTMiddleware(config.GetEnvString("JWT_SECRET_KEY")))
 	e.HTTPErrorHandler = middleware.ErrorHandler // Set up custom error handler middleware
 	SetupRouter(e, container)                    // Set up routes and handlers
 
