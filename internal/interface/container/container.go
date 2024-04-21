@@ -1,13 +1,22 @@
 package container
 
 import (
+	buyerD "gokomodo-test/internal/domain/buyer"
+	productD "gokomodo-test/internal/domain/product"
+	sellerD "gokomodo-test/internal/domain/seller"
+
+	"gokomodo-test/internal/infrastructure/postgre"
 	"gokomodo-test/pkg/config"
-	// "gokomodo-test/internal/infrastructure/postgre"
+
+	"gokomodo-test/internal/interface/usecase/onboard"
+	"gokomodo-test/internal/interface/usecase/seller"
 )
 
 type Container struct {
-	Config *config.DefaultConfig
-	DB     *config.DB
+	Config         *config.DefaultConfig
+	DB             *config.DB
+	OnboardService onboard.OnboardService
+	SellerService  seller.SellerService
 }
 
 // to validate all necesseries dependencies to be injected
@@ -17,6 +26,9 @@ func (c *Container) Validate() *Container {
 	}
 	if c.DB == nil {
 		panic("db is nil")
+	}
+	if c.OnboardService == nil {
+		panic("Onboard service is nil")
 	}
 	return c
 }
@@ -44,11 +56,22 @@ func New() *Container {
 		MinPoolSize: config.GetEnvInteger("PSQL_MINPOOL_SIZE"),
 	}
 
-	// db := postgre.NewPgSql(dbConf)
+	db := postgre.NewPgSql(dbConf)
+
+	// repositories
+	buyerRepo := buyerD.NewBuyerRepository(db)
+	sellerRepo := sellerD.NewSellerRepository(db)
+	productRepo := productD.NewProductRepository(db)
+
+	// usecases
+	onboardService := onboard.NewService(buyerRepo, sellerRepo)
+	sellerService := seller.NewService(productRepo, sellerRepo)
 
 	container := &Container{
-		Config: defConfig,
-		DB:     &dbConf,
+		Config:         defConfig,
+		DB:             &dbConf,
+		OnboardService: onboardService,
+		SellerService:  sellerService,
 	}
 
 	container.Validate()
