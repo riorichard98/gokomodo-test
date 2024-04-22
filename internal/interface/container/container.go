@@ -43,7 +43,7 @@ func (c *Container) Validate() *Container {
 }
 
 func New() *Container {
-	config.LoadEnv()
+	config.LoadEnv(".env")
 
 	// app default configuration
 	defConfig := &config.DefaultConfig{
