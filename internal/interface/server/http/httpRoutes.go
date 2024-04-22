@@ -22,8 +22,12 @@ func SetupRouter(server *echo.Echo, cont *container.Container) {
 
 	sellerRoute := server.Group("/sellers")
 	sellerRoute.POST("/product", handler.SellerHandler.AddNewProduct)
+	sellerRoute.GET("/products", handler.SellerHandler.GetProductList)
+	sellerRoute.GET("/orders", handler.SellerHandler.OrderList)
+	sellerRoute.POST("/orders", handler.SellerHandler.AcceptOrder)
 
-	// buyerRoute := server.Group("/buyer")
-	// sellerRoute := server.Group("/seller")
-
+	buyerRoute := server.Group("/buyers")
+	buyerRoute.GET("/products", handler.BuyerHandler.GetAllProduct)
+	buyerRoute.POST("/order", handler.BuyerHandler.OrderProduct)
+	buyerRoute.GET("/order", handler.BuyerHandler.GetAllOrder)
 }

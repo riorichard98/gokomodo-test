@@ -13,3 +13,7 @@ type Order struct {
 	TotalPrice                 float64 `db:"total_price,omitempty"`
 	Status                     string  `db:"status,omitempty"`
 }
+
+type Total struct {
+	Total int `db:"total"`
+}

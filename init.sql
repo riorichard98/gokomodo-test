@@ -24,7 +24,7 @@ create table product (
     id uuid primary key default uuid_generate_v4(),
     product_name varchar(255) not null,
     description text,
-    price decimal(10, 2) not null,
+    price float not null,
     seller_id uuid,
     foreign key (seller_id) references seller(id)
 );
@@ -38,8 +38,8 @@ create table "order" (
     delivery_destination_address text not null,
     items text,
     quantity int,
-    price decimal(10, 2),
-    total_price decimal(10, 2),
+    price float,
+    total_price float,
     status varchar(50) default 'pending',
     foreign key (buyer_id) references buyer(id),
     foreign key (seller_id) references seller(id)
@@ -51,6 +51,8 @@ create extension if not exists pgcrypto;
 -- Insert a seller into the table
 insert into seller (email, name, password, alamat_pickup)
 values ('rio@gmail.com', 'rio', crypt('123', gen_salt('bf')), '123 Main Street, Anytown, USA');
+insert into seller (email, name, password, alamat_pickup)
+values ('rio2@gmail.com', 'rio2', crypt('123', gen_salt('bf')), '123 Main Street, Anytown, USA');
 
 -- Insert a buyer into the table
 insert into buyer (email, name, password, alamat_pengiriman)

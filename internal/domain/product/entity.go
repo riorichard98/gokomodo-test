@@ -8,3 +8,7 @@ type Product struct {
 	Price       float64 `db:"price"`
 	SellerID    string  `db:"seller_id"`
 }
+
+type Total struct {
+	Total int `db:"total"`
+}

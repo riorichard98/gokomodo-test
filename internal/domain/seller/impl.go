@@ -38,9 +38,6 @@ func (r *repositorySeller) FindByID(ctx context.Context, id string) (seller Sell
 
 	seller = Seller{}
 	err = row.Scan(&seller.ID, &seller.Email, &seller.Name, &seller.Password, &seller.AlamatPickup)
-	if err != nil {
-		return Seller{}, err
-	}
 
-	return seller, nil
+	return
 }

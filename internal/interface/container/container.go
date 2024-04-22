@@ -2,12 +2,14 @@ package container
 
 import (
 	buyerD "gokomodo-test/internal/domain/buyer"
+	orderD "gokomodo-test/internal/domain/order"
 	productD "gokomodo-test/internal/domain/product"
 	sellerD "gokomodo-test/internal/domain/seller"
 
 	"gokomodo-test/internal/infrastructure/postgre"
 	"gokomodo-test/pkg/config"
 
+	"gokomodo-test/internal/interface/usecase/buyer"
 	"gokomodo-test/internal/interface/usecase/onboard"
 	"gokomodo-test/internal/interface/usecase/seller"
 )
@@ -17,6 +19,7 @@ type Container struct {
 	DB             *config.DB
 	OnboardService onboard.OnboardService
 	SellerService  seller.SellerService
+	BuyerService   buyer.BuyerService
 }
 
 // to validate all necesseries dependencies to be injected
@@ -29,6 +32,12 @@ func (c *Container) Validate() *Container {
 	}
 	if c.OnboardService == nil {
 		panic("Onboard service is nil")
+	}
+	if c.SellerService == nil {
+		panic("Seller service is nil")
+	}
+	if c.BuyerService == nil {
+		panic("Buyer service is nil")
 	}
 	return c
 }
@@ -62,16 +71,19 @@ func New() *Container {
 	buyerRepo := buyerD.NewBuyerRepository(db)
 	sellerRepo := sellerD.NewSellerRepository(db)
 	productRepo := productD.NewProductRepository(db)
+	orderRepo := orderD.NewOrderRepository(db)
 
 	// usecases
 	onboardService := onboard.NewService(buyerRepo, sellerRepo)
-	sellerService := seller.NewService(productRepo, sellerRepo)
+	sellerService := seller.NewService(productRepo, sellerRepo, orderRepo)
+	buyerService := buyer.NewService(productRepo, buyerRepo, sellerRepo, orderRepo)
 
 	container := &Container{
 		Config:         defConfig,
 		DB:             &dbConf,
 		OnboardService: onboardService,
 		SellerService:  sellerService,
+		BuyerService:   buyerService,
 	}
 
 	container.Validate()

@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
+	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"
 )
 
@@ -58,4 +59,9 @@ func ClaimJWT(jwtData interface{}) (userId string) {
 
 	userId = tokenInfo.Claims.Id
 	return
+}
+
+func IsValidUUID(input string) bool {
+	_, err := uuid.Parse(input)
+	return err == nil
 }
