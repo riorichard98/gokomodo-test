@@ -21,9 +21,16 @@
     go mod tidy
     ```
 
-4. Create a PostgreSQL database and initialize it with the required schema using the `init.sql` file provided.
+4. Create a PostgreSQL database with the following details:
+    - **Database Name:** shop
+    - **Username:** gokomodo
+    - **Password:** 12345
+    - **Host:** localhost
+    - **Port:** 5432
 
-5. **Login Credentials:**
+5. Initialize the database with the required schema using the provided `init.sql` file.
+
+6. **Login Credentials:**
     - **Seller:**
         - Email: rio@gmail.com
         - Name: rio
@@ -36,7 +43,7 @@
         - Password: 456
         - Address: 456 Elm Street, Anytown, USA
 
-6. Finally, run the application:
+7. Finally, run the application:
     ```bash
     go run main.go
     ```
