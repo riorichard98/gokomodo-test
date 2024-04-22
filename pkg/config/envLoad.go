@@ -7,8 +7,8 @@ import (
 	"strings"
 )
 
-func LoadEnv() {
-	err := loadEnvFromFile(".env")
+func LoadEnv(fileName string) {
+	err := loadEnvFromFile(fileName)
 	if err != nil {
 		panic(fmt.Sprintf("cannot load env variables with erro: %v", err.Error()))
 	}
