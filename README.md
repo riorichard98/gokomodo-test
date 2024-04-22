@@ -1,3 +1,24 @@
+# Running the App
+
+## With Docker
+
+### Prerequisites
+- Docker installed on your system
+
+### Instructions
+1. Clone the repository:
+    ```bash
+    git clone <repository_url>
+    cd <repository_name>
+    ```
+
+2. Run the following command to build and start the app with Docker:
+    ```bash
+    make run-all
+    ```
+
+---
+
 ## Without Docker
 
 ### Prerequisites
