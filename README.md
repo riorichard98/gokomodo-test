@@ -8,8 +8,8 @@
 ### Instructions
 1. Clone the repository:
     ```bash
-    git clone <repository_url>
-    cd <repository_name>
+    git clone https://github.com/riorichard98/gokomodo-test
+    cd gokomodo-test
     ```
 
 2. Run the following command to build and start the app with Docker:
@@ -28,8 +28,8 @@
 ### Instructions
 1. Clone the repository:
     ```bash
-    git clone <repository_url>
-    cd <repository_name>
+    git clone https://github.com/riorichard98/gokomodo-test
+    cd gokomodo-test
     ```
 
 2. **(Optional)** Run PostgreSQL in a Docker container:
@@ -70,5 +70,3 @@
     ```
 
 ---
-
-Please make sure to replace `<repository_url>` and `<repository_name>` with the actual URL and name of your repository. Also, ensure that the necessary environment variables are set up if required for your application to connect to PostgreSQL without Docker.
